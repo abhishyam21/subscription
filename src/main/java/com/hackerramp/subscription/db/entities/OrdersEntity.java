@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name ="orders")
-public class Orders {
+public class OrdersEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
