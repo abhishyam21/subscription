@@ -1,14 +1,16 @@
 package com.hackerramp.subscription.services.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @ToString
-public class ProductSubscriptionRequest {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class OrderRequest {
     private String uidx;
     private String productId;
-    private Long intervalInSec;
-    private String address;
+    private Integer quantity;
     private String paymentMode;
+    private Float price;
 }
