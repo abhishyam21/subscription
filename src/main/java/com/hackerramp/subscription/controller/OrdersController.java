@@ -1,5 +1,6 @@
 package com.hackerramp.subscription.controller;
 
+import com.hackerramp.subscription.services.OrderService;
 import com.hackerramp.subscription.services.beans.OrderDetailsResponse;
 import com.hackerramp.subscription.services.beans.OrderRequest;
 import com.sun.istack.internal.NotNull;
@@ -15,11 +16,12 @@ import java.util.List;
 public class OrdersController {
 
     @Autowired
-    private OrdersRepo ordersRepo;
+    private OrderService orderService;
 
     @GetMapping("/showAllOrders")
     public ResponseEntity<List<OrdersEntity>> getOrders(){
-        return ResponseEntity.ok().body((List<OrdersEntity>) ordersRepo.findAll());
+        List<OrdersEntity> ordersEntityList = orderService.getAllOrders();
+        return ResponseEntity.ok().body(ordersEntityList);
     }
 
     @GetMapping(value = {"/users/{uidx}"})
