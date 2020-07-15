@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.hackerramp.subscription.db.OrdersRepo;
-import com.hackerramp.subscription.db.entities.Orders;
+import com.hackerramp.subscription.db.entities.OrdersEntity;
 import java.util.List;
 
 @RestController
@@ -18,8 +18,8 @@ public class OrdersController {
     private OrdersRepo ordersRepo;
 
     @GetMapping("/showAllOrders")
-    public ResponseEntity<List<Orders>> getEmployees(){
-        return ResponseEntity.ok().body((List<Orders>) ordersRepo.findAll());
+    public ResponseEntity<List<OrdersEntity>> getOrders(){
+        return ResponseEntity.ok().body((List<OrdersEntity>) ordersRepo.findAll());
     }
 
     @GetMapping(value = {"/users/{uidx}"})
