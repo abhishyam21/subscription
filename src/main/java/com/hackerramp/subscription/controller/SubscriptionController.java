@@ -1,7 +1,7 @@
 package com.hackerramp.subscription.controller;
 
-import com.hackerramp.subscription.services.entities.SubscriptionRequest;
-import com.hackerramp.subscription.services.entities.SubscriptionResponse;
+import com.hackerramp.subscription.services.beans.SubscriptionRequest;
+import com.hackerramp.subscription.services.beans.SubscriptionResponse;
 import com.sun.istack.internal.NotNull;
 import org.springframework.web.bind.annotation.*;
 import com.hackerramp.subscription.db.SubscriptionRepo;
