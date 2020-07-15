@@ -15,28 +15,30 @@ import static com.hackerramp.subscription.constants.FilterConstants.*;
 
 @Slf4j
 @Component
-public class SubscriptionNotificationScheduler {
+public class CreateOrderCron {
 
     @Autowired
     private SubscriptionRepo subscriptionRepo;
 
-
     @Scheduled(fixedRate = 5000)
-    public void scheduleNotifications() {
-        log.info("Running SubscriptionNotificationScheduler cron JOB");
+    public void scheduleCreateOrders(){
+        log.info("Running CreateOrderCron cron JOB");
 
         List<SubscriptionEntity> subscriptionEntityList = (List<SubscriptionEntity>)subscriptionRepo.findAll();
         Set<SubscriptionEntity> filteredSubscriptionEntitySet = subscriptionEntityList
                 .stream()
-                .filter(filterIfDaysDifferenceIsLessThanTwo
+                .filter(filterIfSameDay
                         .and(filterSubscriptionIsActive)
                         .and(filterIsNotificationAlreadyPushed)
+                        .negate()
                 )
                 .collect(Collectors.toSet());
-        sendNotifications(filteredSubscriptionEntitySet);
+        createOrders(filteredSubscriptionEntitySet);
     }
 
-    private void sendNotifications(Set<SubscriptionEntity> subscriptionEntitySet) {
-        subscriptionEntitySet.forEach(subscriptionEntity -> log.info("Sending Notification {}", subscriptionEntity));
+    private void createOrders(Set<SubscriptionEntity> subscriptionEntitySet) {
+        subscriptionEntitySet.forEach(subscriptionEntity ->
+                log.info("Creating order for subscription: {}",subscriptionEntity));
     }
+
 }
