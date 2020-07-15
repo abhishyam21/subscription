@@ -16,8 +16,8 @@ public class SubscriptionEntity {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "ORDER_ID")
-    private Integer orderId;
+    @Column(name = "ORDER_IDS")
+    private String orderIds;
 
     @Column(name = "USER_ID")
     private String userId;
@@ -28,11 +28,14 @@ public class SubscriptionEntity {
     @Column(name = "SUBSCRIPTION_START_DATE")
     private DateTime subscriptionStartDate;
 
-    @Column(name = "PERIOD")
-    private Integer period;
+    @Column(name = "QUANTITY")
+    private Integer quantity;
 
     @Column(name = "FREQUENCY")
     private Integer frequency;
+
+    @Column(name = "ADDRESS")
+    private String address;
 
     @Column(name = "NEXT_SUBSCRIPTION_DATE")
     private DateTime nextSubscriptionDate;

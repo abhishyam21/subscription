@@ -15,7 +15,6 @@ public class OrderDetailsEntry {
     private Long productId;
     private Integer quantity;
     private Float price;
-    private String paymentMode;
     private String address;
     private Date orderPlacedDate;
 }

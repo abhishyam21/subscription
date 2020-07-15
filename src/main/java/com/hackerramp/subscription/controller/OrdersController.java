@@ -31,12 +31,12 @@ public class OrdersController {
     }
 
     @GetMapping(value = {"/orders/{orderId}"})
-    private OrderDetailsResponse getByOrderId(@PathVariable("orderId") @NotNull String orderId) throws Exception{
+    private ResponseEntity<OrderDetailsResponse> getByOrderId(@PathVariable("orderId") @NotNull String orderId) throws Exception{
         return null;
     }
 
     @PostMapping(value = {"/place"})
-    private OrderDetailsResponse subscribeToProduct(@RequestBody OrderRequest orderRequest){
+    private ResponseEntity<OrderDetailsResponse> subscribeToProduct(@RequestBody OrderRequest orderRequest){
         return null;
     }
 

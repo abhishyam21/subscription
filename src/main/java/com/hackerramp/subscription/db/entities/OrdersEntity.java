@@ -27,9 +27,6 @@ public class OrdersEntity {
     @Column(name = "TOTAL_PRICE")
     private Float totalPrice;
 
-    @Column(name = "PAYMENT_MODE")
-    private String payment_mode;
-
     @Column(name = "ADDRESS")
     private String address;
 
