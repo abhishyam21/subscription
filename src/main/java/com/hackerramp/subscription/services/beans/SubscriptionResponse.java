@@ -1,4 +1,4 @@
-package com.hackerramp.subscription.services.entities;
+package com.hackerramp.subscription.services.beans;
 
 import lombok.Data;
 import lombok.ToString;
