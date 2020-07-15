@@ -25,8 +25,9 @@ public class OrdersController {
     }
 
     @GetMapping(value = {"/users/{uidx}"})
-    private OrderDetailsResponse getOrdersByUidx(@PathVariable("uidx") @NotNull String uidx) throws Exception{
-        return null;
+    private ResponseEntity<OrderDetailsResponse> getOrdersByUidx(@PathVariable("uidx") @NotNull String uidx) {
+        OrderDetailsResponse orderDetailsResponse = orderService.getOrder(uidx);
+        return ResponseEntity.ok().body(orderDetailsResponse);
     }
 
     @GetMapping(value = {"/orders/{orderId}"})
