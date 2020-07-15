@@ -23,12 +23,12 @@ public class OrdersController {
         return ResponseEntity.ok().body((List<Orders>) ordersRepo.findAll());
     }
 
-    @GetMapping(value = {"/uidx/{uidx}"})
+    @GetMapping(value = {"/users/{uidx}"})
     private OrderDetailsResponse getOrdersByUidx(@PathVariable("uidx") @NotNull String uidx) throws Exception{
         return null;
     }
 
-    @GetMapping(value = {"/subscriptionId/{orderId}"})
+    @GetMapping(value = {"/orders/{orderId}"})
     private OrderDetailsResponse getByOrderId(@PathVariable("orderId") @NotNull String orderId) throws Exception{
         return null;
     }

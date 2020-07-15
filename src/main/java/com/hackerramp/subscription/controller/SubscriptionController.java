@@ -18,12 +18,12 @@ import java.util.List;
 @RequestMapping("/subscription")
 public class SubscriptionController {
 
-    @GetMapping(value = {"/uidx/{uidx}"})
+    @GetMapping(value = {"/users/{uidx}"})
     private SubscriptionResponse getSubscriptionsByUidx(@PathVariable("uidx") @NotNull String uidx) throws Exception{
         return null;
     }
 
-    @GetMapping(value = {"/subscriptionId/{sid}"})
+    @GetMapping(value = {"/subscriptions/{sid}"})
     private SubscriptionResponse getBySubscriptionId(@PathVariable("sid") @NotNull String sid) throws Exception{
         return null;
     }
