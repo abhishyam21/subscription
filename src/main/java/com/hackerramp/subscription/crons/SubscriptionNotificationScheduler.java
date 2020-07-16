@@ -30,13 +30,18 @@ public class SubscriptionNotificationScheduler {
                 .stream()
                 .filter(filterIfDaysDifferenceIsLessThanTwo
                         .and(filterSubscriptionIsActive)
-                        .and(filterIsNotificationAlreadyPushed)
+                        .and(filterIsNotificationNoyYetPushed)
                 )
                 .collect(Collectors.toSet());
         sendNotifications(filteredSubscriptionEntitySet);
     }
 
     private void sendNotifications(Set<SubscriptionEntity> subscriptionEntitySet) {
-        subscriptionEntitySet.forEach(subscriptionEntity -> log.info("Sending Notification {}", subscriptionEntity));
+        subscriptionEntitySet.forEach(subscriptionEntity -> {
+            log.info("Sending Notification {}", subscriptionEntity);
+            subscriptionEntity.setIsNotificationPushed(true);
+            subscriptionRepo.save(subscriptionEntity);
+        });
+
     }
 }
