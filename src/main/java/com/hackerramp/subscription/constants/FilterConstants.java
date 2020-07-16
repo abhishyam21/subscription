@@ -17,13 +17,14 @@ public interface FilterConstants {
      Predicate<SubscriptionEntity> filterSubscriptionIsActive = subscriptionEntity ->
             subscriptionEntity.getSubscriptionStatus().equals(SubscriptionStatusConstants.ACTIVE);
 
-     Predicate<SubscriptionEntity> filterIsNotificationAlreadyPushed = subscriptionEntity ->
+     Predicate<SubscriptionEntity> filterIsNotificationNoyYetPushed = subscriptionEntity ->
             !subscriptionEntity.getIsNotificationPushed();
 
+    Predicate<SubscriptionEntity> filterIsNotificationAlreadyPushed = SubscriptionEntity::getIsNotificationPushed;
+
     Predicate<SubscriptionEntity> filterIfSameDay = subscriptionEntity -> {
-        DateTime afterTwoDaysDate = new DateTime();
-        DateTime nextSubscriptionDate = new DateTime(subscriptionEntity.getNextSubscriptionDate());
-        Days differenceInDays = Days.daysBetween(afterTwoDaysDate, nextSubscriptionDate);
-        return differenceInDays.getDays() <= 0;
+        DateTime afterTwoMinutes = new DateTime();
+        long diffInMilliSec = subscriptionEntity.getNextSubscriptionDate().getTime()- afterTwoMinutes.getMillis();
+        return 30000 >= diffInMilliSec; //half minute difference
     };
 }

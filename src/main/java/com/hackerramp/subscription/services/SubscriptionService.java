@@ -46,10 +46,15 @@ public class SubscriptionService {
 
     public SubscriptionResponse subscribe(SubscriptionRequest subscriptionRequest) throws BadInputException {
         SubscriptionEntity subscriptionEntity = transformRequestToEntity(subscriptionRequest);
-        OrderDetailsResponse orderDetailsResponse = orderService.createOrder(transformSubscriptionEntityToDBEntity(subscriptionEntity));
-        setOrderId(orderDetailsResponse.getOrderDetailsEntrySet(), subscriptionEntity);
+        createOrder(subscriptionEntity);
         subscriptionEntity = subscriptionRepo.save(subscriptionEntity);
         return transformEntityToResponse(subscriptionEntity);
+    }
+
+    public SubscriptionEntity createOrder(SubscriptionEntity subscriptionEntity) throws BadInputException {
+        OrderDetailsResponse orderDetailsResponse = orderService.createOrder(transformSubscriptionEntityToDBEntity(subscriptionEntity));
+        setOrderId(orderDetailsResponse.getOrderDetailsEntrySet(), subscriptionEntity);
+        return subscriptionEntity;
     }
 
     private void setOrderId(Set<OrderDetailsEntry> orderDetailsEntrySet, SubscriptionEntity subscriptionEntity) {

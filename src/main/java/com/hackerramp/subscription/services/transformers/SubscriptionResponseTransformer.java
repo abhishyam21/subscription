@@ -62,7 +62,7 @@ public class SubscriptionResponseTransformer {
         return subscriptionEntity;
     }
 
-    private static Timestamp calculateNextTime(DateTime dateTime, Integer intervalInSec) {
+    public static Timestamp calculateNextTime(DateTime dateTime, Integer intervalInSec) {
         return new Timestamp(dateTime.plusSeconds(intervalInSec).getMillis());
     }
 
