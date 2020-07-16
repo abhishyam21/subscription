@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 public interface FilterConstants {
      Predicate<SubscriptionEntity> filterIfDaysDifferenceIsLessThanTwo = subscriptionEntity -> {
         DateTime afterTwoDaysDate = new DateTime();
-        DateTime nextSubscriptionDate = subscriptionEntity.getNextSubscriptionDate();
+        DateTime nextSubscriptionDate = new DateTime(subscriptionEntity.getNextSubscriptionDate());
         Days differenceInDays = Days.daysBetween(afterTwoDaysDate, nextSubscriptionDate);
         return differenceInDays.getDays() <= 2;
     };
@@ -22,7 +22,7 @@ public interface FilterConstants {
 
     Predicate<SubscriptionEntity> filterIfSameDay = subscriptionEntity -> {
         DateTime afterTwoDaysDate = new DateTime();
-        DateTime nextSubscriptionDate = subscriptionEntity.getNextSubscriptionDate();
+        DateTime nextSubscriptionDate = new DateTime(subscriptionEntity.getNextSubscriptionDate());
         Days differenceInDays = Days.daysBetween(afterTwoDaysDate, nextSubscriptionDate);
         return differenceInDays.getDays() <= 0;
     };

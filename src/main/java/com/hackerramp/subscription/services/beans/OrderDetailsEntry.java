@@ -3,6 +3,7 @@ package com.hackerramp.subscription.services.beans;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.util.Date;
 

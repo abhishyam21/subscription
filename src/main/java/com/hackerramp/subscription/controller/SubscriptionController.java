@@ -1,16 +1,18 @@
 package com.hackerramp.subscription.controller;
 
+import com.hackerramp.subscription.exception.BadInputException;
 import com.hackerramp.subscription.services.SubscriptionService;
 import com.hackerramp.subscription.services.beans.SubscriptionRequest;
 import com.hackerramp.subscription.services.beans.SubscriptionResponse;
 import com.sun.istack.internal.NotNull;
-import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+
+import static com.hackerramp.subscription.validators.SubscriptionRequestValidator.validateRequest;
 
 @Slf4j
 @RestController
@@ -22,32 +24,54 @@ public class SubscriptionController {
 
 
     @GetMapping(value = {"/users/{uidx}"})
-    private ResponseEntity<SubscriptionResponse> getSubscriptionsByUidx(@PathVariable("uidx") @NotNull String uidx) throws Exception{
+    private ResponseEntity<SubscriptionResponse> getSubscriptionsByUidx(@PathVariable("uidx") @NotNull String uidx) {
+        log.info("IN /users/{uidx} API");
         SubscriptionResponse subscriptionResponse = subscriptionService.getByUserId(uidx);
         return ResponseEntity.ok().body(subscriptionResponse);
     }
 
-    @GetMapping(value = {"/subscriptions/{sid}"})
-    private ResponseEntity<SubscriptionResponse> getBySubscriptionId(@PathVariable("sid") @NotNull Integer sid) throws Exception{
+    @GetMapping(value = {"/{sid}"})
+    private ResponseEntity<SubscriptionResponse> getBySubscriptionId(@PathVariable("sid") @NotNull Integer sid) {
+        log.info("IN /subscriptions/{sid} API");
         SubscriptionResponse subscriptionResponse = subscriptionService.getBySubscriptionId(sid);
         return ResponseEntity.ok().body(subscriptionResponse);
     }
 
     @PostMapping(value = {"/subscribe"})
-    private ResponseEntity.BodyBuilder subscribeToProduct(@RequestBody SubscriptionRequest subscriptionRequest){
-        subscriptionService.subscribe(subscriptionRequest);
-        return ResponseEntity.ok();
+    private ResponseEntity<SubscriptionResponse> subscribeToProduct(@RequestBody SubscriptionRequest subscriptionRequest){
+        log.info("IN /subscribe API");
+        try {
+            validateRequest(subscriptionRequest);
+            SubscriptionResponse subscribe = subscriptionService.subscribe(subscriptionRequest);
+            return ResponseEntity.created(URI.create("/subscribe")).body(subscribe);
+        } catch (BadInputException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @PutMapping(value = {"/editSubscription"})
-    private ResponseEntity.BodyBuilder editProductSubscription(@RequestBody SubscriptionRequest subscriptionRequest){
-        return ResponseEntity.ok();
+    @PutMapping(value = {"/editSubscription/{sid}"})
+    private ResponseEntity<SubscriptionResponse> editProductSubscription(@PathVariable("sid") @NotNull Integer sid,
+                                                                             @RequestBody SubscriptionRequest subscriptionRequest){
+        log.info("IN /editSubscription API");
+        try {
+            validateRequest(subscriptionRequest, sid);
+            SubscriptionResponse subscribe = subscriptionService.editSubscription(subscriptionRequest, sid);
+            return ResponseEntity.created(URI.create("/subscribe")).body(subscribe);
+        } catch (BadInputException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @PutMapping(value = {"/unsubscribe"})
-    private ResponseEntity.BodyBuilder unsubscribe(@RequestBody Integer sid){
-        subscriptionService.unsubscribe(sid);
-        return ResponseEntity.ok();
+    @PutMapping(value = {"/unsubscribe/{sid}"})
+    private ResponseEntity unsubscribe(@PathVariable("sid") @NotNull Integer sid){
+        log.info("IN /unsubscribe API");
+        try {
+            String unsubscribe = subscriptionService.unsubscribe(sid);
+            return ResponseEntity.ok().body(unsubscribe);
+        } catch (BadInputException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 }

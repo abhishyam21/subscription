@@ -2,9 +2,12 @@ package com.hackerramp.subscription.services.transformers;
 
 
 import com.hackerramp.subscription.db.entities.OrdersEntity;
+import com.hackerramp.subscription.db.entities.SubscriptionEntity;
 import com.hackerramp.subscription.services.beans.OrderDetailsEntry;
 import com.hackerramp.subscription.services.beans.OrderDetailsResponse;
 import com.hackerramp.subscription.services.beans.OrderRequest;
+import com.hackerramp.subscription.services.beans.SubscriptionRequest;
+import org.joda.time.DateTime;
 import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
@@ -57,5 +60,15 @@ public class OrderResponseTransformer {
         ordersEntity.setPaymentMode(request.getPaymentMode());
         ordersEntity.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         return ordersEntity;
+    }
+
+    public static OrderRequest transformSubscriptionEntityToDBEntity(SubscriptionEntity entity){
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.setProductId(entity.getProductId());
+        orderRequest.setUidx(entity.getUserId());
+        orderRequest.setQuantity(entity.getQuantity());
+        orderRequest.setPrice(entity.getTotalPrice());
+        orderRequest.setAddress(entity.getAddress());
+        return orderRequest;
     }
 }

@@ -1,6 +1,7 @@
 package com.hackerramp.subscription.db.entities;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

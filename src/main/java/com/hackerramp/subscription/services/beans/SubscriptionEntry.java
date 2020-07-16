@@ -14,8 +14,8 @@ import java.util.List;
 public class SubscriptionEntry {
     private Integer subId;
     private String productId;
-    private DateTime orderPlacedDate;
-    private DateTime nextOrderTriggerDate;
+    private Date orderPlacedDate;
+    private Date nextOrderTriggerDate;
     private Integer intervalInMin;
     private String address;
     private List<Integer> orderIds;
