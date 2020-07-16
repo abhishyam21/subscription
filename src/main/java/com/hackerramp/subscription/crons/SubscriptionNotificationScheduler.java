@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.hackerramp.subscription.constants.FilterConstants.*;
+import static com.hackerramp.subscription.constants.SubscriptionStatusConstants.ACTIVE;
 
 @Slf4j
 @Component
@@ -28,7 +29,7 @@ public class SubscriptionNotificationScheduler {
     public void scheduleNotifications() {
         log.info("Running SubscriptionNotificationScheduler cron JOB");
 
-        List<SubscriptionEntity> subscriptionEntityList = (List<SubscriptionEntity>)subscriptionRepo.findAll();
+        List<SubscriptionEntity> subscriptionEntityList = subscriptionRepo.findBySubscriptionStatus(ACTIVE);
         Set<SubscriptionEntity> filteredSubscriptionEntitySet = subscriptionEntityList
                 .stream()
                 .filter(filterIfDaysDifferenceIsLessThanTwo

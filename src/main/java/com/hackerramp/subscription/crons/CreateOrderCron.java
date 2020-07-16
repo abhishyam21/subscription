@@ -1,5 +1,6 @@
 package com.hackerramp.subscription.crons;
 
+import com.hackerramp.subscription.constants.SubscriptionStatusConstants;
 import com.hackerramp.subscription.db.SubscriptionRepo;
 import com.hackerramp.subscription.db.entities.SubscriptionEntity;
 import com.hackerramp.subscription.exception.BadInputException;
@@ -17,6 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.hackerramp.subscription.constants.FilterConstants.*;
+import static com.hackerramp.subscription.constants.SubscriptionStatusConstants.*;
 import static com.hackerramp.subscription.services.transformers.SubscriptionResponseTransformer.calculateNextTime;
 
 @Slf4j
@@ -32,14 +34,15 @@ public class CreateOrderCron {
     @Autowired
     private NotificationService notificationService;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 60000)
     public void scheduleCreateOrders(){
         log.info("Running CreateOrderCron cron JOB");
 
-        List<SubscriptionEntity> subscriptionEntityList = (List<SubscriptionEntity>)subscriptionRepo.findAll();
+        List<SubscriptionEntity> subscriptionEntityList = subscriptionRepo.findBySubscriptionStatus(ACTIVE);
         Set<SubscriptionEntity> filteredSubscriptionEntitySet = subscriptionEntityList
                 .stream()
-                .filter(filterIfSameDay
+                .filter(
+                        filterIfSameDay
                         .and(filterSubscriptionIsActive)
                         .and(filterIsNotificationAlreadyPushed)
                 )
