@@ -34,7 +34,7 @@ public class CreateOrderCron {
     @Autowired
     private NotificationService notificationService;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 60000)
     public void scheduleCreateOrders(){
         log.info("Running CreateOrderCron cron JOB");
 
