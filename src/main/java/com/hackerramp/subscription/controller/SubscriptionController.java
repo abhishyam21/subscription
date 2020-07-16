@@ -4,12 +4,12 @@ import com.hackerramp.subscription.exception.BadInputException;
 import com.hackerramp.subscription.services.SubscriptionService;
 import com.hackerramp.subscription.services.beans.SubscriptionRequest;
 import com.hackerramp.subscription.services.beans.SubscriptionResponse;
-import com.sun.istack.internal.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 import static com.hackerramp.subscription.validators.SubscriptionRequestValidator.validateRequest;
