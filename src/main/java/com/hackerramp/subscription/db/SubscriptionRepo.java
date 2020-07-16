@@ -11,4 +11,6 @@ import java.util.List;
 public interface SubscriptionRepo extends CrudRepository<SubscriptionEntity, Integer> {
 
     List<SubscriptionEntity> findByUserIdAndSubscriptionStatus(String userId, SubscriptionStatusConstants status);
+
+    List<SubscriptionEntity> findBySubscriptionStatus(SubscriptionStatusConstants status);
 }
