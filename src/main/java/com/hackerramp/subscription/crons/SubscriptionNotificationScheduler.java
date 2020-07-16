@@ -25,7 +25,7 @@ public class SubscriptionNotificationScheduler {
     @Autowired
     private NotificationService notificationService;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 8000)
     public void scheduleNotifications() {
         log.info("Running SubscriptionNotificationScheduler cron JOB");
 
