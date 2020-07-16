@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,9 @@ public class SubscriptionService {
     private SubscriptionRepo subscriptionRepo;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private OrderService orderService;
 
     public SubscriptionResponse getByUserId(String uidx){
@@ -48,6 +52,11 @@ public class SubscriptionService {
         SubscriptionEntity subscriptionEntity = transformRequestToEntity(subscriptionRequest);
         createOrder(subscriptionEntity);
         subscriptionEntity = subscriptionRepo.save(subscriptionEntity);
+        try {
+            notificationService.sendNotification("Subscribed", "You have successfully subscribed");
+        } catch (IOException e) {
+            log.error("Error while sending notification to user:",e);
+        }
         return transformEntityToResponse(subscriptionEntity);
     }
 
@@ -74,6 +83,11 @@ public class SubscriptionService {
             SubscriptionEntity subscriptionEntity = subscriptionEntityOptional.get();
             SubscriptionResponseTransformer.transformRequestToEntity(subscriptionRequest, subscriptionEntity);
             subscriptionEntity = subscriptionRepo.save(subscriptionEntity);
+            try {
+                notificationService.sendNotification("Subscribed", "Thank you for subscribing with our products!!");
+            } catch (IOException e) {
+                log.error("Error while sending notification to user:",e);
+            }
             return transformEntityToResponse(subscriptionEntity);
         }else {
             log.error("No Subscription Entity found with Id {}", sid);
