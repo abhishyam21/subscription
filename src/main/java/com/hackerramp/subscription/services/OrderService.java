@@ -10,7 +10,9 @@ import com.hackerramp.subscription.validators.OrderRequestValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,9 @@ public class OrderService {
 
     @Autowired
     private OrdersRepo ordersRepo;
+
+    @Autowired
+    private NotificationService notificationService;
 
     public List<OrdersEntity> getAllOrders() {
         return (List<OrdersEntity>) ordersRepo.findAll();
@@ -44,6 +49,11 @@ public class OrderService {
         OrderRequestValidator.validateOrderRequest(orderRequest);
         OrdersEntity ordersEntity = transformOrderRequestToDBEntity(orderRequest);
         ordersEntity = ordersRepo.save(ordersEntity);
+        try {
+            notificationService.sendNotification("","Thank you for shopping with us!!\\n You order is successfully placed");
+        } catch (IOException e) {
+            log.error("Error while sending notification to user:",e);
+        }
         return transformOrderEntityToResponseObject(ordersEntity);
     }
 }

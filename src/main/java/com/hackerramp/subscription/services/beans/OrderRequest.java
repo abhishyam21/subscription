@@ -9,7 +9,7 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class OrderRequest {
     private String uidx;
-    private String productId;
+    private Integer productId;
     private Integer quantity;
     private Float price;
     private String address;

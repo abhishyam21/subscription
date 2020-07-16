@@ -1,17 +1,16 @@
 package com.hackerramp.subscription.controller;
 
+import com.hackerramp.subscription.db.entities.OrdersEntity;
 import com.hackerramp.subscription.exception.BadInputException;
 import com.hackerramp.subscription.services.OrderService;
 import com.hackerramp.subscription.services.beans.OrderDetailsResponse;
 import com.hackerramp.subscription.services.beans.OrderRequest;
-import com.sun.istack.internal.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.hackerramp.subscription.db.OrdersRepo;
-import com.hackerramp.subscription.db.entities.OrdersEntity;
 
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.List;
 

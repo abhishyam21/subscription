@@ -4,12 +4,13 @@ import com.hackerramp.subscription.exception.BadInputException;
 import com.hackerramp.subscription.services.SubscriptionService;
 import com.hackerramp.subscription.services.beans.SubscriptionRequest;
 import com.hackerramp.subscription.services.beans.SubscriptionResponse;
-import com.sun.istack.internal.NotNull;
+import com.hackerramp.subscription.services.beans.UnSubscribeResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 import static com.hackerramp.subscription.validators.SubscriptionRequestValidator.validateRequest;
@@ -63,15 +64,14 @@ public class SubscriptionController {
     }
 
     @PutMapping(value = {"/unsubscribe/{sid}"})
-    private ResponseEntity unsubscribe(@PathVariable("sid") @NotNull Integer sid){
+    private ResponseEntity<UnSubscribeResponse> unsubscribe(@PathVariable("sid") @NotNull Integer sid){
         log.info("IN /unsubscribe API");
         try {
             String unsubscribe = subscriptionService.unsubscribe(sid);
-            return ResponseEntity.ok().body(unsubscribe);
+            return ResponseEntity.ok().body(new UnSubscribeResponse(unsubscribe));
         } catch (BadInputException e) {
             return ResponseEntity.badRequest().build();
         }
-
     }
 
 }

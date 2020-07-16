@@ -13,7 +13,7 @@ import java.util.Date;
 public class OrderDetailsEntry implements Comparable<OrderDetailsEntry>{
     private String uidx;
     private Integer id;
-    private String productId;
+    private Integer productId;
     private Integer quantity;
     private Float price;
     private String address;

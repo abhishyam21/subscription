@@ -17,7 +17,7 @@ public class OrdersEntity {
     private Integer id;
 
     @Column(name = "PRODUCT_ID")
-    private String productId;
+    private Integer productId;
 
     @Column(name = "USER_ID")
     private String userId;

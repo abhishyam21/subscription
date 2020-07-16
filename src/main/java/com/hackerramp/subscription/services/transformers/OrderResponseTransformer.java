@@ -6,8 +6,6 @@ import com.hackerramp.subscription.db.entities.SubscriptionEntity;
 import com.hackerramp.subscription.services.beans.OrderDetailsEntry;
 import com.hackerramp.subscription.services.beans.OrderDetailsResponse;
 import com.hackerramp.subscription.services.beans.OrderRequest;
-import com.hackerramp.subscription.services.beans.SubscriptionRequest;
-import org.joda.time.DateTime;
 import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
