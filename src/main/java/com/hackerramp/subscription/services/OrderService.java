@@ -50,7 +50,8 @@ public class OrderService {
         OrdersEntity ordersEntity = transformOrderRequestToDBEntity(orderRequest);
         ordersEntity = ordersRepo.save(ordersEntity);
         try {
-            notificationService.sendNotification("","Thank you for shopping with us!!\\n You order is successfully placed");
+            notificationService.sendNotification("","Thank you for shopping with us!!\\n You order is successfully placed",
+                    ordersEntity.getProductId());
         } catch (IOException e) {
             log.error("Error while sending notification to user:",e);
         }

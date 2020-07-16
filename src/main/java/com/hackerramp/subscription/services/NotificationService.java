@@ -9,13 +9,13 @@ import java.io.IOException;
 @Slf4j
 @Service
 public class NotificationService {
-    public void sendNotification(String title, String text) throws IOException {
+    public void sendNotification(String title, String text, Integer productId) throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
 
         MediaType mediaType = MediaType.parse("application/json");
         MediaType.parse("application/json");
-        RequestBody responseBody = RequestBody.create(crateNotificationObject(title,text),
+        RequestBody responseBody = RequestBody.create(crateNotificationObject(title,text, productId),
                 mediaType);
         Request request = new Request.Builder()
                 .url("https://fcm.googleapis.com/fcm/send")
@@ -27,10 +27,16 @@ public class NotificationService {
         System.out.println(response.body());
     }
 
-    private String crateNotificationObject(String title, String text) {
+    private String crateNotificationObject(String title, String text, Integer productId) {
         String body = "{\n    \"notification\": {\n       " +
                 " \"title\": \"%s\",\n        \"text\": \"%s\"\n    },\n   " +
-                " \"condition\": \"!('Notopic' in topics)\"\n}";
-        return String.format(body, title, text);
+                " \"condition\": \"!('Notopic' in topics)\",\n" +
+                " \"data\":{\n " +
+                " \"productId\":%d \n" +
+                "}\n" +
+                "\n}";
+        String finalBody = String.format(body, title, text, productId);
+        log.info("Body for Notification: {}", finalBody);
+        return finalBody;
     }
 }

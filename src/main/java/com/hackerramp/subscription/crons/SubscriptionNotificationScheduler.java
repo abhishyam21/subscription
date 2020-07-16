@@ -44,7 +44,8 @@ public class SubscriptionNotificationScheduler {
         subscriptionEntitySet.forEach(subscriptionEntity -> {
             log.info("Sending Notification {}", subscriptionEntity);
             try {
-                notificationService.sendNotification("", "Your product subscription renewal confirmation");
+                notificationService.sendNotification("", "Your product subscription renewal confirmation",
+                        subscriptionEntity.getProductId());
             } catch (IOException e) {
                 log.error("Error while sending notification to user:",e);
             }

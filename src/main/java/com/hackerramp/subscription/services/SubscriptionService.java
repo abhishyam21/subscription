@@ -53,7 +53,8 @@ public class SubscriptionService {
         createOrder(subscriptionEntity);
         subscriptionEntity = subscriptionRepo.save(subscriptionEntity);
         try {
-            notificationService.sendNotification("Subscribed", "You have successfully subscribed");
+            notificationService.sendNotification("Subscribed", "You have successfully subscribed",
+                    subscriptionEntity.getProductId());
         } catch (IOException e) {
             log.error("Error while sending notification to user:",e);
         }
@@ -84,7 +85,8 @@ public class SubscriptionService {
             SubscriptionResponseTransformer.transformRequestToEntity(subscriptionRequest, subscriptionEntity);
             subscriptionEntity = subscriptionRepo.save(subscriptionEntity);
             try {
-                notificationService.sendNotification("Subscribed", "Thank you for subscribing with our products!!");
+                notificationService.sendNotification("Subscribed", "Thank you for subscribing with our products!!",
+                        subscriptionEntity.getProductId());
             } catch (IOException e) {
                 log.error("Error while sending notification to user:",e);
             }
