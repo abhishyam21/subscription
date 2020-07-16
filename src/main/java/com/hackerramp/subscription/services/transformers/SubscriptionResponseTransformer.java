@@ -77,7 +77,7 @@ public class SubscriptionResponseTransformer {
         if(isNotEmpty(request.getUidx())){
             subscriptionEntity.setUserId(request.getUidx());
         }
-        if(isNotEmpty(request.getProductId())){
+        if(request.getProductId() == null){
             subscriptionEntity.setProductId(request.getProductId());
         }
         if(isNotEmpty(request.getAddress())){

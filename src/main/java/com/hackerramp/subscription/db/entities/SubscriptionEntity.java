@@ -23,7 +23,7 @@ public class SubscriptionEntity {
     private String userId;
 
     @Column(name = "PRODUCT_ID")
-    private String productId;
+    private Integer productId;
 
     @Column(name = "SUBSCRIPTION_START_DATE")
     private Timestamp subscriptionStartDate;

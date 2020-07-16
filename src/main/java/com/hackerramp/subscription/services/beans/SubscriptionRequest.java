@@ -9,7 +9,7 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionRequest {
     private String uidx;
-    private String productId;
+    private Integer productId;
     private Integer intervalInSec;
     private String address;
     private Integer quantity;
