@@ -2,9 +2,9 @@ package com.hackerramp.subscription.db.entities;
 
 import com.hackerramp.subscription.constants.SubscriptionStatusConstants;
 import lombok.Data;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class SubscriptionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
 
@@ -26,10 +26,13 @@ public class SubscriptionEntity {
     private String productId;
 
     @Column(name = "SUBSCRIPTION_START_DATE")
-    private DateTime subscriptionStartDate;
+    private Timestamp subscriptionStartDate;
 
     @Column(name = "QUANTITY")
     private Integer quantity;
+
+    @Column(name = "TOTAL_PRICE")
+    private Float totalPrice;
 
     @Column(name = "FREQUENCY")
     private Integer frequency;
@@ -38,13 +41,16 @@ public class SubscriptionEntity {
     private String address;
 
     @Column(name = "NEXT_SUBSCRIPTION_DATE")
-    private DateTime nextSubscriptionDate;
+    private Timestamp nextSubscriptionDate;
 
     @Column(name = "SUBSCRIPTION_END_DATE")
-    private DateTime subscriptionEndDate;
+    private Timestamp subscriptionEndDate;
 
     @Column(name = "IS_NOTIFICATION_PUSHED")
     private Boolean isNotificationPushed;
+
+    @Column(name = "PAYMENT_MODE")
+    private String paymentMode;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SUBSCRIPTION_STATUS")

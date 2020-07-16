@@ -8,10 +8,11 @@ import lombok.ToString;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SubscriptionRequest {
-    private Integer subId;
     private String uidx;
     private String productId;
     private Integer intervalInSec;
     private String address;
     private Integer quantity;
+    private Float price;
+    private String paymentMode;
 }

@@ -1,6 +1,7 @@
 package com.hackerramp.subscription.db.entities;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
 public class OrdersEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
 
@@ -29,6 +30,9 @@ public class OrdersEntity {
 
     @Column(name = "ADDRESS")
     private String address;
+
+    @Column(name = "PAYMENT_MODE")
+    private String paymentMode;
 
     @Column(name = "CREATED_DATE")
     private Timestamp createdDate;

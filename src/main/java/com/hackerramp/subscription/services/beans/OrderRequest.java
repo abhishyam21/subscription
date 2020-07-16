@@ -12,4 +12,6 @@ public class OrderRequest {
     private String productId;
     private Integer quantity;
     private Float price;
+    private String address;
+    private String paymentMode;
 }
