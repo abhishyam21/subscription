@@ -57,7 +57,8 @@ public class CreateOrderCron {
                         SubscriptionEntity entity = subscriptionService.createOrder(subscriptionEntity);
                         entity.setNextSubscriptionDate(calculateNextTime(new DateTime(), entity.getFrequency()));
                         subscriptionRepo.save(entity);
-                        notificationService.sendNotification("","You Subscription order is successfully placed");
+                        notificationService.sendNotification("","You Subscription order is successfully placed",
+                                subscriptionEntity.getProductId());
                     } catch (BadInputException e) {
                         log.error("Error while creating order for subscriptionId: {}, {}",
                                 subscriptionEntity.getId(),

@@ -9,7 +9,6 @@ import org.joda.time.DateTime;
 
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -63,7 +62,7 @@ public class SubscriptionResponseTransformer {
     }
 
     public static Timestamp calculateNextTime(DateTime dateTime, Integer intervalInSec) {
-        return new Timestamp(dateTime.plusSeconds(intervalInSec).getMillis());
+        return new Timestamp(dateTime.plusMinutes(intervalInSec).getMillis());
     }
 
     private static List<Integer> stringToList(String listInString){
