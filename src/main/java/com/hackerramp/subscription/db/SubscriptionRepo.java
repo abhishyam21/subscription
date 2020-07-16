@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepo extends CrudRepository<SubscriptionEntity, Integer> {
 
-    List<SubscriptionEntity> getSubscriptionEntitiesByUserIAndSubscriptionStatus(String userId, SubscriptionStatusConstants status);
+    List<SubscriptionEntity> findByUserIdAndSubscriptionStatus(String userId, SubscriptionStatusConstants status);
 }

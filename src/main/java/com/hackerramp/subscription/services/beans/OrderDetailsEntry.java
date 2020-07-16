@@ -9,12 +9,18 @@ import java.util.Date;
 @Data
 @ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class OrderDetailsEntry {
+public class OrderDetailsEntry implements Comparable<OrderDetailsEntry>{
     private String uidx;
-    private Long id;
-    private Long productId;
+    private Integer id;
+    private String productId;
     private Integer quantity;
     private Float price;
     private String address;
     private Date orderPlacedDate;
+    private String paymentMode;
+
+    @Override
+    public int compareTo(OrderDetailsEntry o) {
+        return o.getId().compareTo(this.id);
+    }
 }

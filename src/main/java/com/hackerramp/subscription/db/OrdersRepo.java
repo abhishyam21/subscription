@@ -4,8 +4,10 @@ import com.hackerramp.subscription.db.entities.OrdersEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface OrdersRepo extends CrudRepository<OrdersEntity, String> {
+import java.util.List;
 
-    OrdersEntity findByUserId(String userId);
+@Repository
+public interface OrdersRepo extends CrudRepository<OrdersEntity, Integer> {
+
+    List<OrdersEntity> findByUserId(String userId);
 }

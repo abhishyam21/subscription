@@ -19,7 +19,7 @@ public class SubscriptionService {
     private SubscriptionRepo subscriptionRepo;
 
     public SubscriptionResponse getByUserId(String uidx){
-        List<SubscriptionEntity> subscriptionEntityList = subscriptionRepo.getSubscriptionEntitiesByUserIAndSubscriptionStatus(uidx, SubscriptionStatusConstants.ACTIVE);
+        List<SubscriptionEntity> subscriptionEntityList = subscriptionRepo.findByUserIdAndSubscriptionStatus(uidx, SubscriptionStatusConstants.ACTIVE);
         return SubscriptionResponseTransformer.transformEntitiesToResponse(subscriptionEntityList, uidx);
     }
 
